@@ -38,19 +38,19 @@ btn.addEventListener("click",()=>{
 
 
 // 3 - 함수로 만들기
-function lotto(){
+function lotto() {
     // 1 - 번호 6개 담을 배열
     const lottoArr = []
     // 2 - 랜덤 번호 6개 만드는 for loop
     for (let i = 0; i < 6; i++) {
-        const num = parseInt(Math.random()*45)+1
+        const num = parseInt(Math.random() * 45) + 1
         // 2.1 - num이 배열에 포함되어있지 않으면 -1 → 배열에 넣어야해
         // if(lottoArr.indexOf(num) === -1){
         //     lottoArr.push(num)
         // // 2.2 - 배열에 있는 칭구칭긔면 i번째 번호 다시 뽑아야해 = 중복 번호뽑은 i번째만 초기화
         // } else {i--}
 
-        if(lottoArr.indexOf(num) > 0) {
+        if (lottoArr.indexOf(num) > 0) {
             console.log("중복")
             i--
             continue
@@ -58,8 +58,13 @@ function lotto(){
         lottoArr.push(num)
     }
     // 3.1 - 함수의 return값 = lottoArr 배열인데, 숫자 오름차순 정렬
-    lottoArr.sort((a,b)=>a-b)
+    // 3.1.1 - 화살표 함수 ({} 필요 없음)
+    lottoArr.sort((a, b) => a - b)
     // lottoArr.sort() - 이상한 정렬이 돼
+    // 3.1.2 - 화살표 없는 함수 ({}필수)
+    // lottoArr.sort((a,b){
+    // return a-b
+    // }
     return lottoArr
 }
 
