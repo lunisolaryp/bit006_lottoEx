@@ -69,3 +69,5 @@ function lotto() {
 }
 
 // console.log(lottoArr)
+
+// 이렇게 짜는 코드는 노가다,, 좋은 코드는 아님

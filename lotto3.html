@@ -15,7 +15,6 @@
 <div class="d-flex" id="wrapper">
     <!-- Sidebar-->
     <div class="border-end bg-white" id="sidebar-wrapper">
-        <!-- Start Bootstrap을 누르면 index.html로 이동할 수 있게 하기 -->
         <div class="sidebar-heading border-bottom bg-light"><a href="index.html">Start Bootstrap</a></div>
         <div class="list-group list-group-flush">
             <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Dashboard</a>
@@ -24,7 +23,6 @@
             <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a>
             <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
             <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
-            <!-- 1 - 로또 목록 추가 -->
             <a class="list-group-item list-group-item-action list-group-item-light p-3" href="lotto.html">Lotto</a>
             <a class="list-group-item list-group-item-action list-group-item-light p-3" href="lotto2.html">Lotto2</a>
             <a class="list-group-item list-group-item-action list-group-item-light p-3" href="lotto3.html">Lotto3</a>
@@ -58,14 +56,32 @@
         </nav>
         <!-- Page content-->
         <div class="container-fluid">
-            <!-- 2 - 페이지 설명-->
-            <h1 class="mt-4">이 페이지는 로또 페이지입니다.</h1>
-            <!-- 3 - 버튼 생성 -->
-            <button type="button" class="btn btn-primary" id="btn">CLICK</button>
-            <!-- 4 - 버튼 누른 후 로또 번호가 보일 곳 -->
-            <div id="resultDiv">
+            <h1 class="mt-4">이 페이지는 로또3 페이지입니다.</h1>
+            <!-- 1 - 번호 입력 칸과 버튼 -->
+            <div class="input-group mb-3">
+                <input type="number" id="moneyInput" class="form-control" placeholder="금액을 입력하세요" value=5000>
+                <button type="button" class="btn btn-primary mybtn">원</button>
+            </div>
+            <div id="resultDiv3">
+
 
             </div>
+        <!--    <style>
+                #resultDiv3{
+                    display: flex;
+                }
+
+                #resultDiv3 > h3{
+                    background-color: lightskyblue;
+                    color: white;
+                    margin: 10px;
+                    padding: 20px;
+                    border-radius: 40px;
+                    min-width: 75px;
+                    text-align: center;
+                    box-shadow: 12px 12px 2px 1px rgba(111,121,133, 0.8)
+                }
+            </style>-->
         </div>
     </div>
 </div>
@@ -73,8 +89,51 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
 <script src="js/scripts.js"></script>
-// 4 - lotto.js 파일 스크립트 태그로 붙여주기
-<script src="js/lotto.js"></script>
+<!-- 2 - 스크립트 태그 직접 여기서 작성-->
+<script src="js/lotto3.js"></script>
+
+<script>
+    <!-- 3 - 버튼 찾기 by class속성 -->
+    const btn = document.querySelector(".mybtn")
+
+    // 4 - 버튼을 눌렀을 때, 이벤트 생성과 리스너
+    btn.addEventListener("click",()=>{
+        // 4.1 - 사용자가 입력한 금액 불러오기(이벤트) by id → id가 moneyInput인 태그의 value = 사용자가 입력한 금액
+        const money = document.querySelector("#moneyInput").value
+
+        // 4.2 - 입력한 금액이 1000원 미만일 경우, alert
+        if(money < 1000){
+            alert("1000원 이상 입력해주세요.")
+            return // return이 없을 경우, 로또 범호 추첨됨
+        }
+
+        // 4.3 - 횟수
+        const count = parseInt(money) / 1000
+
+        const resultDiv3 = document.querySelector("#resultDiv3")
+
+        // 4.4 - 횟수만큼 로또 번호 생성
+        let str3 = ''
+        for (let i = 0; i < count; i++) {
+            // 4.4.1 - 로또 함수 호출
+            const balls3 = lotto3()
+            // 4.4.2 - <ul> 태그 생성
+            // <ul>
+            //     <li>로또 번호 </li> * 6
+            // </ul> 이런 형태
+            str3 += "<ul class='pagination'>"
+            for (let j = 0; j < balls3.length; j++) {
+                str3 += `<li class="page-item"><a class="page-link">${balls3[j]}</a></li>`
+            }
+            str3 += "</ul>"
+        } //end for
+
+        // 4.5 - resultDiv3 안에 <ul><li>로또번호</li></ul> 넣기
+        resultDiv3.innerHTML = str3
+        // str3에 ul,li태그와 로또 번호가 모두 들어갈 수 있는 이유는 += 때문이야, 차곡차곡쌓인다!
+    },false)
+
+</script>
 
 </body>
 </html>
